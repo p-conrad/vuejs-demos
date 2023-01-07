@@ -1,72 +1,76 @@
-/* vue.js */
-function ListItem(value) {
-	this.value = +value;
-	this.editing = false;
-	this.newValue = '';
-}
+const { createApp } = Vue
 
-ListItem.prototype = {
-	constructor: ListItem,
-	startUpdate: function() {
-		this.newValue = this.value;
+class ListItem {
+	constructor(radius) {
+		this.radius = radius;
+		this.editing = false;
+		this.newRadius = 0;
+	}
+
+	startUpdate() {
+		this.newRadius = this.radius;
 		this.editing = true;
-	},
-	commitUpdate: function() {
-		if (this.editing && this.newValue) {
-			this.value = +this.newValue;
-			this.newValue = '';
+	}
+
+	commitUpdate() {
+		if (this.editing && this.newRadius) {
+			this.radius = this.newRadius;
+			this.newRadius = '';
 			this.editing = false;
 		}
-	},
-	abortUpdate: function() {
-		this.newValue = '';
+	}
+
+	abortUpdate() {
+		this.newRadius = '';
 		this.editing = false;
 	}
-};
+}
 
-let dynamicItem = {
+const dynamicItem = {
 	props: [ 'item' ],
-	template: '<li class="pa1 lh-copy bt-0 bl-0 br-0 bb b--dashed b--black-50 bg-animate hover-bg-near-white flex items-center"><span class="flex-auto" v-if="!item.editing">{{ item.value }}</span>'
-		+ '<span v-on:click="item.startUpdate()" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-edit"></span>'
-		+ '<span v-on:click="$emit(\'remove\')" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-delete"></span>'
-		+ '<input class="w-100" v-if="item.editing" v-on:keyup.enter="item.commitUpdate()" v-on:keyup.esc="item.abortUpdate()" v-model="item.newValue" v-focus>'
+	template: `
+		<li class="pa1 lh-copy bt-0 bl-0 br-0 bb b--dashed b--black-50 bg-animate hover-bg-near-white flex items-center">
+			<span class="flex-auto" v-if="!item.editing">{{ item.radius }}</span>
+			<span v-on:click="item.startUpdate()" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-edit"></span>
+			<span v-on:click="$emit(\'remove\')" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-delete"></span>
+			<input class="w-100" v-if="item.editing" v-on:keyup.enter="item.commitUpdate()" v-on:keyup.esc="item.abortUpdate()" v-model="item.newRadius" v-focus>
+		</li>`
 };
 
-Vue.directive('focus', {
-	inserted: function(el) { el.focus(); }
-})
-
-var sample02 = new Vue({
-	el: '#sample02',
-	data: {
-		list: [
-			new ListItem(10),
-			new ListItem(50),
-			new ListItem(25),
-			new ListItem(100),
-			new ListItem(78),
-			new ListItem(250),
-			new ListItem(300),
-			new ListItem(150)
-		],
-		newItem: ''
+const circlesApp = createApp({
+	data() {
+		return {
+			list: [
+				new ListItem(10),
+				new ListItem(20),
+				new ListItem(30),
+				new ListItem(50),
+				new ListItem(80),
+				new ListItem(130),
+				new ListItem(210),
+			],
+			newItem: ''
+		}
+	},
+	mounted() {
+	 this.updateCircles()
 	},
 	methods: {
-		addItem: function() {
+		addItem() {
 			if (this.newItem !== '') {
 				this.list.push(new ListItem(this.newItem));
 				this.newItem = '';
 			}
 		},
-		updateCircles: function() {
-			data = this.list.map(e => e.value);
-			var size = d3.max(data) * 2;
+		updateCircles() {
+			let data = this.list.map(e => e.radius);
+			let size = d3.max(data) * 2;
 
-			var chart = d3.select(".chart")
+			let chart = d3.select(".chart")
 				.attr("height", size)
 				.attr("width", size)
 
-			var selection = chart.selectAll("circle").data(data);
+			let selection = chart.selectAll("circle").data(data);
 
 			selection.enter()
 				.append("circle")
@@ -101,6 +105,15 @@ var sample02 = new Vue({
 		'dynamic-item': dynamicItem
 	},
 	watch: {
-		list: function() { this.updateCircles(); } 
-	}
-});
+		list: {
+			handler(val, oldVal) {
+				this.updateCircles()
+			},
+			deep: true
+		},
+	},
+})
+.directive('focus', {
+	mounted: (el) => el.focus()
+})
+.mount('#app');
