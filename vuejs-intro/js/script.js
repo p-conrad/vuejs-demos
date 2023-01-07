@@ -57,8 +57,14 @@ const app02 = createApp({
 	data() {
 		return {
 			list: [
-				new ListItem('ダミー１'),
-				new ListItem('ダミー２')
+				new ListItem('Flour'),
+				new ListItem('Sugar'),
+				new ListItem('Milk'),
+				new ListItem('Eggs'),
+				new ListItem('Baking Powder'),
+				new ListItem('Vanilla Extract'),
+				new ListItem('Sunflower Oil'),
+				new ListItem('Salt'),
 			],
 			newItem: ''
 		}
