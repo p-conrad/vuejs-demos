@@ -1,0 +1,25 @@
+.chart {
+	display: block;
+	margin: 0 auto;
+}
+.circle {
+	fill: none;
+	stroke: steelblue;
+}
+
+li:hover .item-control {
+	display: block;
+}
+.icon::before {
+	background-size: cover;
+	content: "";
+	display: block;
+	height: 1.2em;
+	width: 1.2em;
+}
+.icon-edit::before {
+	background-image: url(../img/edit.svg);
+}
+.icon-delete::before {
+	background-image: url(../img/delete.svg);
+}

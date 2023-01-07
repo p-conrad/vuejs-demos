@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Circles</title>
+	<link rel="stylesheet" href="css/tachyons.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<svg class="chart"></svg>
+	<div class="br2 shadow-3 mt4 pa3 center mw6 dark-gray" id="sample02">
+		<ul class="list ph2 black-80">
+			<dynamic-item v-for="(element, index) in list" :item="element" v-on:remove="list.splice(index, 1)"></dynamic-item>
+		</ul>
+		<div class="flex justify-around">
+			<input class="mr1 pv1 ph1 ba b--black-60 bg-white dim hover-bg-near-white flex-auto" v-model="newItem" v-on:keyup.enter="addItem" placeholder="要素を追加">
+			<button class="mr1 pv1 ph3 ba b--black-60 bg-white dim hover-bg-near-white pointer" v-on:click="addItem">追加</button>
+		</div>
+	</div><!-- /.sample02 -->
+	<script src="js/d3.v4.min.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+li:hover .item-control {
+	display: block;
+}
+.icon::before {
+	background-size: cover;
+	content: "";
+	display: block;
+	height: 1.2em;
+	width: 1.2em;
+}
+.icon-edit::before {
+	background-image: url(../images/edit.svg);
+}
+.icon-delete::before {
+	background-image: url(../images/delete.svg);
+}
