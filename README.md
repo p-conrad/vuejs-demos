@@ -32,6 +32,8 @@ automatically trigger a redraw any time the list changes, and the "mounted" life
 the initial drawing. Some basic error handling is also implemented to prevent the input of invalid
 values into the list.
 
+https://user-images.githubusercontent.com/9436392/211218951-cdfb9fca-d6b3-4f4e-acce-142d43cfec85.mp4
+
 There are some minor caveats to this implementation: First, the modified value in the list does not
 always correspond to the right circle in the image, leading sometimes to multiple circles to be
 redrawn. Also, the image is resized immediately upon modification of the list, causing the animation
