@@ -13,8 +13,8 @@
 			<dynamic-item v-for="(element, index) in list" :item="element" v-on:remove="list.splice(index, 1)"></dynamic-item>
 		</ul>
 		<div class="flex justify-around">
-			<input class="mr1 pv1 ph1 ba b--black-60 bg-white dim hover-bg-near-white flex-auto" v-model="newItem" v-on:keyup.enter="addItem" placeholder="要素を追加">
-			<button class="mr1 pv1 ph3 ba b--black-60 bg-white dim hover-bg-near-white pointer" v-on:click="addItem">追加</button>
+			<input class="mr1 pv1 ph1 ba b--black-60 bg-white dim hover-bg-near-white flex-auto" v-model="newItem" v-on:keyup.enter="addItem" placeholder="Add a new circle">
+			<button class="mr1 pv1 ph3 ba b--black-60 bg-white dim hover-bg-near-white pointer" v-on:click="addItem">Insert</button>
 		</div>
 	</div><!-- /.app -->
 	<script src="js/d3.v4.min.js"></script>

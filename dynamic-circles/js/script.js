@@ -36,7 +36,7 @@ const dynamicItem = {
 			<span class="flex-auto" v-if="!item.editing">{{ item.radius }}</span>
 			<span v-on:click="item.startUpdate()" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-edit"></span>
 			<span v-on:click="$emit(\'remove\')" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-delete"></span>
-			<input class="w-100" v-if="item.editing" v-on:keyup.enter="item.commitUpdate()" v-on:keyup.esc="item.abortUpdate()" v-model="item.newRadius" v-focus>
+			<input class="w-100" placeholder="Return: finish, Escape: abort" v-if="item.editing" v-on:keyup.enter="item.commitUpdate()" v-on:keyup.esc="item.abortUpdate()" v-model="item.newRadius" v-focus>
 		</li>`
 };
 
