@@ -9,7 +9,7 @@
 <body>
 	<svg class="chart"></svg>
 	<div class="br2 shadow-3 mt4 pa3 center mw6 dark-gray" id="app">
-		<ul class="list ph2 black-80">
+		<ul class="list mt0 ph2 black-80">
 			<dynamic-item v-for="(element, index) in list" :item="element" v-on:remove="list.splice(index, 1)"></dynamic-item>
 		</ul>
 		<div class="flex justify-around">
