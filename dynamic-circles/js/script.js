@@ -13,15 +13,18 @@ class ListItem {
 	}
 
 	commitUpdate() {
-		if (this.editing && this.newRadius) {
+		this.newRadius = parseFloat(this.newRadius)
+		if (!isNaN(this.newRadius) && this.newRadius > 0) {
 			this.radius = this.newRadius;
-			this.newRadius = '';
 			this.editing = false;
+			this.newRadius = 0;
+		} else {
+			this.newRadius = this.radius;
 		}
 	}
 
 	abortUpdate() {
-		this.newRadius = '';
+		this.newRadius = 0;
 		this.editing = false;
 	}
 }
@@ -53,14 +56,15 @@ const circlesApp = createApp({
 		}
 	},
 	mounted() {
-	 this.updateCircles()
+		this.updateCircles()
 	},
 	methods: {
 		addItem() {
-			if (this.newItem !== '') {
-				this.list.push(new ListItem(this.newItem));
-				this.newItem = '';
+			let radius = parseFloat(this.newItem)
+			if (!isNaN(radius) && radius > 0) {
+				this.list.push(new ListItem(radius));
 			}
+			this.newItem = '';
 		},
 		updateCircles() {
 			let data = this.list.map(e => e.radius);
