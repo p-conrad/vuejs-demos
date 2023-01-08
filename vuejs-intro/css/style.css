@@ -9,8 +9,8 @@ li:hover .item-control {
 	width: 1.2em;
 }
 .icon-edit::before {
-	background-image: url(../images/edit.svg);
+	background-image: url(../img/edit.svg);
 }
 .icon-delete::before {
-	background-image: url(../images/delete.svg);
+	background-image: url(../img/delete.svg);
 }
