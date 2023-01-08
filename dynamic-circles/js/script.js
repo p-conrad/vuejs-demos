@@ -2,30 +2,30 @@ const { createApp } = Vue
 
 class ListItem {
 	constructor(radius) {
-		this.radius = radius;
-		this.editing = false;
-		this.newRadius = 0;
+		this.radius = radius
+		this.editing = false
+		this.newRadius = 0
 	}
 
 	startUpdate() {
-		this.newRadius = this.radius;
-		this.editing = true;
+		this.newRadius = this.radius
+		this.editing = true
 	}
 
 	commitUpdate() {
 		this.newRadius = parseFloat(this.newRadius)
 		if (!isNaN(this.newRadius) && this.newRadius > 0) {
-			this.radius = this.newRadius;
-			this.editing = false;
-			this.newRadius = 0;
+			this.radius = this.newRadius
+			this.editing = false
+			this.newRadius = 0
 		} else {
-			this.newRadius = this.radius;
+			this.newRadius = this.radius
 		}
 	}
 
 	abortUpdate() {
-		this.newRadius = 0;
-		this.editing = false;
+		this.newRadius = 0
+		this.editing = false
 	}
 }
 
@@ -34,11 +34,11 @@ const dynamicItem = {
 	template: `
 		<li class="pa1 lh-copy bt-0 bl-0 br-0 bb b--dashed b--black-50 bg-animate hover-bg-near-white flex items-center">
 			<span class="flex-auto" v-if="!item.editing">{{ item.radius }}</span>
-			<span v-on:click="item.startUpdate()" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-edit"></span>
-			<span v-on:click="$emit(\'remove\')" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-delete"></span>
-			<input class="w-100" placeholder="Return: finish, Escape: abort" v-if="item.editing" v-on:keyup.enter="item.commitUpdate()" v-on:keyup.esc="item.abortUpdate()" v-model="item.newRadius" v-focus>
+			<span @click="item.startUpdate()" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-edit"></span>
+			<span @click="$emit(\'remove\')" v-if="!item.editing" class="mr1 pointer dim dn item-control icon icon-delete"></span>
+			<input class="w-100" v-if="item.editing" @keyup.enter="item.commitUpdate()" @keyup.esc="item.abortUpdate()" v-model="item.newRadius" v-focus>
 		</li>`
-};
+}
 
 const circlesApp = createApp({
 	data() {
@@ -62,19 +62,19 @@ const circlesApp = createApp({
 		addItem() {
 			let radius = parseFloat(this.newItem)
 			if (!isNaN(radius) && radius > 0) {
-				this.list.push(new ListItem(radius));
+				this.list.push(new ListItem(radius))
 			}
-			this.newItem = '';
+			this.newItem = ''
 		},
 		updateCircles() {
-			let data = this.list.map(e => e.radius);
-			let size = d3.max(data) * 2;
+			let data = this.list.map(e => e.radius)
+			let size = d3.max(data) * 2
 
 			let chart = d3.select(".chart")
 				.attr("height", size)
 				.attr("width", size)
 
-			let selection = chart.selectAll("circle").data(data);
+			let selection = chart.selectAll("circle").data(data)
 
 			selection.enter()
 				.append("circle")
@@ -85,7 +85,7 @@ const circlesApp = createApp({
 				.transition()
 				.duration(1000)
 				.ease(d3.easeCircleOut)
-				.attr("r", d => d);
+				.attr("r", d => d)
 
 			selection
 				.attr("cx", size / 2)
@@ -93,7 +93,7 @@ const circlesApp = createApp({
 				.transition()
 				.duration(1000)
 				.ease(d3.easeCircleOut)
-				.attr("r", d => d);
+				.attr("r", d => d)
 
 			selection.exit()
 				.attr("cx", size / 2)
@@ -102,7 +102,7 @@ const circlesApp = createApp({
 				.duration(1000)
 				.ease(d3.easeCircleIn)
 				.attr("r", 0)
-				.remove();
+				.remove()
 		}
 	},
 	components: {
@@ -120,4 +120,4 @@ const circlesApp = createApp({
 .directive('focus', {
 	mounted: (el) => el.focus()
 })
-.mount('#app');
+.mount('#app')
